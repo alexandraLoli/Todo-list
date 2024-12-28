@@ -1,0 +1,316 @@
+:root {
+    --surface-color:#fff8f8;
+    --primary-container: #ffd9e1;
+    --on-surface: #22191b;
+    --primary: #8c4a5f;
+    --on-primary-container: #3a071c;
+    --on-primary: #ffffff;
+    --secondary: #74565e;
+    --on-secondary: #ffffff;
+    --secondary-container: #ffd9e1;
+    --om-secondary-container: #2b151c;
+    --surface-dim: #fff0f2;
+    --on-primary-container: #671839;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.concert-one-regular {
+    font-family: "Concert One", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+body {
+    background-color: var(--surface-color);
+    width: 99%;
+    height: 99%;
+    max-height: 1000px;
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    grid-template-rows: repeat(5, 1fr);
+    grid-gap: 1em;
+    grid-template-areas: 
+    'title work'
+    'entry household'
+    'entry health'
+    'entry social'
+    'entry personal';
+}
+
+.border-solid {
+    border: 1px solid #22191b ;
+}
+
+.title {
+    grid-area: title;
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-gap: 0.5em;
+    grid-template-areas: 
+    'none input'
+    'header input'
+    'header input';
+}
+
+h1 {
+    color: var(--on-surface);
+    font-size: 3.5rem;
+    font-weight: bolder;
+    grid-area: header;
+    padding: 5px;
+    justify-self: center;
+}
+
+#entry-form {
+    grid-area: input;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    padding: 5px;
+}
+
+label {
+    color: var(--on-surface);
+}
+
+input, select, textarea {
+    background-color: var(--primary-container);
+    color: var(--on-primary-container);
+    border: none;
+    border-radius: 5px;
+}
+
+button {
+    background-color: var(--primary);
+    color: var(--on-primary);
+    border: none;
+    border-radius: 5px;
+}
+
+.banner {
+    background-color: var(--secondary);
+    color: var(--on-secondary);
+    width: 100%;
+    padding: 5px;
+    text-align: center;
+}
+
+.task-entry-category {
+    margin-top: 10px;
+    width: 100%;
+    height: 30%;
+    border: 2px solid var(--secondary);
+    border-radius: 10px;
+    padding: 5px;
+    color: var(--secondary);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    justify-content: flex-start
+}
+
+.unchecked {
+    background-color: none;
+}
+
+.checked {
+    background-color: var(--secondary);
+}
+
+.title-checked {
+    text-decoration: line-through;
+}
+
+.task-checkbox-category {
+    border: 2px solid var(--secondary);
+    border-radius: 50%;
+    width: 7%;
+    height: 70%;
+}
+
+.task-title-category {
+    font-size: 1.3rem;
+}
+
+.task-date-category {
+    font-size: 1.1rem;
+    margin-left: auto;
+}
+
+.main {
+    grid-area: entry;
+    background-color: var(--primary-container);
+    overflow: auto;
+    border-radius: 10px;
+}
+
+.main-menu {
+    background-color: var(--primary);
+    color: var(--on-primary);
+    width: 100%;
+    height: 6%;
+    padding: 10px;
+    text-align: center;
+    font-size: 1.5rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.main-menu > button {
+    border: 2px solid var(--on-primary);
+    width: 15%;
+}
+
+.main-tasks-flex {
+    padding: 10px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
+    color: var(--on-primary-container);
+    justify-content: flex-start;
+    padding: auto;
+}
+
+.task-entry-main {
+    width: 32%;
+    height: 200px;
+    background-color: var(--surface-dim);
+    border: 3px solid var(--on-primary-container);
+    padding: 10px;
+    border-radius: 10px;
+    font-weight: bold;
+    box-sizing: border-box;
+    overflow: auto;
+    display: inline;
+    position: relative;
+}
+
+.task-date-main {
+    font-size: 1rem;
+    position: absolute;
+    left: 50%;
+    top: 9%;
+}
+
+.task-checkbox-main {
+    border: 2px solid var(--on-primary-container);
+    border-radius: 50%;
+    width: 10%;
+    height: 13%;
+    position: absolute;
+    left: 83%;
+    top: 15%;
+}
+
+.task-description-main {
+    word-wrap: break-word;
+    font-weight: normal;
+    font-size: 0.8rem;
+    position: absolute;
+    width: 90%;
+    top: 30%;
+}
+
+.task-title-main {
+    font-size: 1.3rem;
+    position: absolute;
+}
+
+.no-border {
+    border: none !important;
+}
+
+.work-tasks {
+    grid-area: work;
+}
+
+.household-tasks {
+    grid-area: household;
+}
+
+.health-tasks {
+    grid-area: health;
+}
+
+.social-tasks {
+    grid-area: social;
+}
+
+.personal-tasks {
+    grid-area: personal;
+}
+
+.work-tasks, .health-tasks, .household-tasks, .social-tasks, .personal-tasks {
+    background-color: var(--surface-dim);
+    overflow: auto;
+    border-radius: 10px;
+}
+
+.work-tasks::-webkit-scrollbar, 
+.health-tasks::-webkit-scrollbar, 
+.household-tasks::-webkit-scrollbar, 
+.social-tasks::-webkit-scrollbar, 
+.personal-tasks::-webkit-scrollbar {
+    width: 10px;
+}
+
+.work-tasks::-webkit-scrollbar-thumb, 
+.health-tasks::-webkit-scrollbar-thumb, 
+.household-tasks::-webkit-scrollbar-thumb, 
+.social-tasks::-webkit-scrollbar-thumb, 
+.personal-tasks::-webkit-scrollbar-thumb {
+    background: var(--secondary);
+}
+
+.work-tasks::-webkit-scrollbar-track, 
+.health-tasks::-webkit-scrollbar-track, 
+.household-tasks::-webkit-scrollbar-track, 
+.social-tasks::-webkit-scrollbar-track, 
+.personal-tasks::-webkit-scrollbar-track {
+    background: var(--surface-dim);
+}
+
+.main::-webkit-scrollbar {
+    width: 10px;
+}
+
+.main::-webkit-scrollbar-thumb {
+    background: var(--primary);
+}
+
+.main::-webkit-scrollbar-track {
+    background: var(--primary-container);
+}
+
+.task-entry-main::-webkit-scrollbar {
+    width: 10px;
+}
+
+.task-entry-main::-webkit-scrollbar-thumb {
+    background: var(--on-primary-container);
+}
+
+.task-entry-main::-webkit-scrollbar-track {
+    background: var(--primary);
+}
+
+::-webkit-scrollbar {
+    width: 15px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary);
+}
+
+::-webkit-scrollbar-track {
+    width: 15px;
+    background: var(--surface-color);
+}
