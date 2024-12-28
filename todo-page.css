@@ -91,6 +91,12 @@ button {
     border-radius: 5px;
 }
 
+button:hover {
+    cursor: pointer;
+    background-color: var(--primary-container);
+    color: var(--on-primary-container);
+}
+
 .banner {
     background-color: var(--secondary);
     color: var(--on-secondary);
@@ -166,6 +172,7 @@ button {
     border: 2px solid var(--on-primary);
     width: 15%;
 }
+
 
 .main-tasks-flex {
     padding: 10px;
