@@ -17,13 +17,77 @@ const socialTasksList = document.getElementById("social-tasks");
 const personalDevelopmentTasksList = document.getElementById("personal-tasks");
 const todoForm = document.getElementById("entry-form");
 
-const categoryList = ["work", "home", "health", "social", "perosnal"];
+const categoryList = ["work", "home", "health", "social", "personal"];
 
 let todoList = [];
 
 let idTask = 0;
 
 let taskElements = {};
+
+const menuOptions = ["Today", "This Week", "All Tasks", "All Active", "All Completed"];
+
+let menuSelect = "All Tasks";
+
+let tasksList = [];
+
+const today = new Date();
+
+const showTodayTasks = () => {
+    mainTasksList.innerHTML = '';
+    tasksList.forEach(task => {
+        const taskDate = parseInt(task.querySelector(".task-date-main").textContent.substring(8, 10),10);
+        if (taskDate === today.getDate()) {
+            mainTasksList.appendChild(task);
+        }
+    });
+}
+
+const showThisWeekTasks = () => {
+    mainTasksList.innerHTML = ``;
+
+    const startOfWeek = new Date(today);
+    const endOfWeek = new Date(today);
+
+    const dayOfWeek = today.getDay();
+    const offsetMonday = (dayOfWeek === 0 ? 6 : dayOfWeek - 1);
+    const offsetSunday = (dayOfWeek === 0? 0 : 7 - dayOfWeek);
+
+    startOfWeek.setDate(today.getDate() - offsetMonday);
+    endOfWeek.setDate(today.getDate() + offsetSunday);
+
+    tasksList.forEach(task => {
+        const taskDate = parseInt(task.querySelector(".task-date-main").textContent.substring(8, 10),10);
+        if (taskDate >= startOfWeek.getDate() && taskDate <= endOfWeek.getDate()) {
+            mainTasksList.appendChild(task);
+        }
+    });
+}
+
+const showAllTasks = () => {
+    mainTasksList.innerHTML = '';
+    tasksList.forEach(task => {
+        mainTasksList.appendChild(task);
+    });
+}
+
+const showAllActiveTasks = () => {
+    mainTasksList.innerHTML = '';
+    tasksList.forEach(task => {
+        if (!task.querySelector(".task-checkbox-main").classList.contains("checked")){
+            mainTasksList.appendChild(task);
+        }
+    });
+}
+
+const showAllCompletedTasks = () => {
+    mainTasksList.innerHTML = '';
+    tasksList.forEach(task => {
+        if (task.querySelector(".task-checkbox-main").classList.contains("checked")){
+            mainTasksList.appendChild(task);
+        }
+    });
+}
 
 const syncCheckboxState = (taskId, completed) => {
     const taskRefs = taskElements[taskId];
@@ -81,6 +145,7 @@ const addTaskInMain = todo => {
     mainTasksList.appendChild(taskToAdd);
 
     taskElements[todo.id].main = taskCheckbox;
+    tasksList.push(taskToAdd);
 }
 
 const addTaskInCategory = todo => {
@@ -110,19 +175,19 @@ const addTaskInCategory = todo => {
     taskToAdd.appendChild(taskCheckbox);
 
     switch(todo.category) {
-        case "work":
+        case categoryList[0]:
             workTasksList.appendChild(taskToAdd);
             break;
-        case "home":
+        case categoryList[1]:
             householdTasksList.appendChild(taskToAdd);
             break;
-        case "health":
+        case categoryList[2]:
             healthTasksList.appendChild(taskToAdd);
             break;
-        case "social":
+        case categoryList[3]:
             socialTasksList.appendChild(taskToAdd);
             break;
-        case "personal":
+        case categoryList[4]:
             personalDevelopmentTasksList.appendChild(taskToAdd);
             break;
         default: break;
@@ -178,6 +243,11 @@ clearCompletedButton.addEventListener("click", () => {
         }
     });
 
+    tasksList = tasksList.filter(task => {
+        const checkbox = task.querySelector(".task-checkbox-main");
+        return !checkbox.classList.contains("checked");
+    });
+
     const workTasks = Array.from(workTasksList.children);
     workTasks.forEach(task => {
         const checkbox = task.querySelector(".task-checkbox-category");
@@ -230,6 +300,29 @@ clearCompletedButton.addEventListener("click", () => {
     }
 
     taskElements = newTaskElements;
+});
 
-    console.log("Remaining task elements:", taskElements);
-})
+todayButton.addEventListener("click", () => {
+    menuSelect = "Today";
+    showTodayTasks();
+});
+
+thisWeekButton.addEventListener("click", () => {
+    menuSelect = "This Week";
+    showThisWeekTasks();
+});
+
+allTasksButton.addEventListener("click", () => {
+    menuSelect = "All Tasks";
+    showAllTasks();
+});
+
+allActiveButton.addEventListener("click", () => {
+    menuSelect = "All Active";
+    showAllActiveTasks();
+});
+
+allCompletedButton.addEventListener("click", () => {
+    menuSelect = "All Completed";
+    showAllCompletedTasks();
+});;
