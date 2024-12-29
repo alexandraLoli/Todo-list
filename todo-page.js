@@ -148,10 +148,28 @@ const addTaskInMain = todo => {
     taskDescription.textContent = todo.description;
     taskToAdd.appendChild(taskDescription);
 
-    mainTasksList.appendChild(taskToAdd);
-
     taskElements[todo.id].main = taskCheckbox;
     tasksList.push(taskToAdd);
+
+    switch(menuSelect) {
+        case menuOptions[0]:
+            showTodayTasks();
+            break;
+        case menuOptions[1]:
+            showThisWeekTasks();
+            break;
+        case menuOptions[2]:
+            showAllTasks();
+            break;
+        case menuOptions[3]:
+            showAllActiveTasks();
+            break;
+        case menuOptions[4]:
+            showAllCompletedTasks();
+            break;
+        default:
+            break;
+    }
 }
 
 const addTaskInCategory = todo => {
