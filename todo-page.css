@@ -203,12 +203,12 @@ button:hover {
 .task-date-main {
     font-size: 1rem;
     position: absolute;
-    left: 50%;
+    left: 45%;
     top: 9%;
 }
 
 .task-checkbox-main {
-    border: 2px solid var(--on-primary-container);
+    border: 2px solid var(--primary);
     border-radius: 50%;
     width: 10%;
     height: 13%;
@@ -224,11 +224,14 @@ button:hover {
     position: absolute;
     width: 90%;
     top: 30%;
+    left: 5%;
 }
 
 .task-title-main {
     font-size: 1.3rem;
     position: absolute;
+    top: 6%;
+    left: 5%;
 }
 
 .no-border {
