@@ -217,4 +217,19 @@ clearCompletedButton.addEventListener("click", () => {
             personalDevelopmentTasksList.removeChild(task);
         }
     });
+
+    const newTaskElements = {};
+
+    for (const key in taskElements) {
+
+        const taskElement = taskElements[key];
+
+        if (!taskElement.main.classList.contains("checked") || !taskElement.category.classList.contains("checked")) {
+            newTaskElements[key] = taskElement;
+        }
+    }
+
+    taskElements = newTaskElements;
+
+    console.log("Remaining task elements:", taskElements);
 })
