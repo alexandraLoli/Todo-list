@@ -163,4 +163,58 @@ todoForm.addEventListener("submit", (event) => {
 
     console.log(todoList);
     console.log(taskElements);
+    idTask++;
 });
+
+clearCompletedButton.addEventListener("click", () => {
+
+    todoList = todoList.filter(todo => todo.completed !== "yes");
+
+    const mainTasks = Array.from(mainTasksList.children);
+    mainTasks.forEach(task => {
+        const checkbox = task.querySelector(".task-checkbox-main");
+        if (checkbox && checkbox.classList.contains("checked")) {
+            mainTasksList.removeChild(task);
+        }
+    });
+
+    const workTasks = Array.from(workTasksList.children);
+    workTasks.forEach(task => {
+        const checkbox = task.querySelector(".task-checkbox-category");
+        if (checkbox && checkbox.classList.contains("checked")) {
+            workTasksList.removeChild(task);
+        }
+    });
+
+    const homeTasks = Array.from(householdTasksList.children);
+    homeTasks.forEach(task => {
+        const checkbox = task.querySelector(".task-checkbox-category");
+        if (checkbox && checkbox.classList.contains("checked")) {
+            householdTasksList.removeChild(task);
+        }
+    });
+
+    const socialTasks = Array.from(socialTasksList.children);
+    socialTasks.forEach(task => {
+        const checkbox = task.querySelector(".task-checkbox-category");
+        if (checkbox && checkbox.classList.contains("checked")) {
+            socialTasksList.removeChild(task);
+        }
+    });
+
+    const healthTasks = Array.from(healthTasksList.children);
+    healthTasks.forEach(task => {
+        const checkbox = task.querySelector(".task-checkbox-category");
+        if (checkbox && checkbox.classList.contains("checked")) {
+            healthTasksList.removeChild(task);
+        }
+    });
+
+    const personalTasks = Array.from(personalDevelopmentTasksList.children);
+    personalTasks.forEach(task => {
+        const checkbox = task.querySelector(".task-checkbox-category");
+        if (checkbox && checkbox.classList.contains("checked")) {
+            personalDevelopmentTasksList.removeChild(task);
+        }
+    });
+})
