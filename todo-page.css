@@ -11,6 +11,8 @@
     --om-secondary-container: #2b151c;
     --surface-dim: #fff0f2;
     --on-primary-container: #671839;
+    --inverse-surface: #382e30;
+    --inverse-primary: #ffb1c6;
 }
 
 * {
@@ -323,4 +325,51 @@ button:hover {
 ::-webkit-scrollbar-track {
     width: 15px;
     background: var(--surface-color);
+}
+
+.fixed {
+    position: fixed;
+    bottom: 5%;
+    left: 1%;
+    background-color: var(--inverse-surface);
+    width: max(150px, 20%);
+    height: 10%;
+    border-radius: 30px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.mark-completed {
+    border: 2px solid var(--inverse-primary);
+    color: var(--inverse-primary);
+    font-size: max(9px, 1.3vw);
+    border-radius: 30px;
+    width: 40%;
+    height: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.mark-completed:hover {
+    background-color: var(--primary-container);
+    color: var(--inverse-surface);
+    cursor: pointer;
+}
+
+.remained-tasks {
+    color: var(--inverse-primary);
+    font-size: max(9px, 1.3vw);
+    border-radius: 30px;
+    width: 40%;
+    height: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+span {
+    margin-right: 3px;
 }

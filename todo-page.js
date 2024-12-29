@@ -1,3 +1,6 @@
+// TODO: Fa in asa fel incat sa se vada ce buton e selectat din meniu
+
+
 const todoTitle = document.getElementById("title");
 const todoDescription = document.getElementById("description");
 const todoCategory = document.getElementById("category");
@@ -16,6 +19,8 @@ const healthTasksList = document.getElementById("health-tasks");
 const socialTasksList = document.getElementById("social-tasks");
 const personalDevelopmentTasksList = document.getElementById("personal-tasks");
 const todoForm = document.getElementById("entry-form");
+const numberOfTasksSpan = document.getElementById("number-of-tasks");
+const markCompletedButton = document.getElementById("mark-completed");
 
 const categoryList = ["work", "home", "health", "social", "personal"];
 
@@ -133,6 +138,7 @@ const addTaskInMain = todo => {
     taskCheckbox.addEventListener("click", () => {
         todo.completed = todo.completed === "yes" ? "no" : "yes";
         syncCheckboxState(todo.id, todo.completed);
+        updateActiveTasksNumber();
     });
 
     taskToAdd.appendChild(taskCheckbox);
@@ -170,6 +176,7 @@ const addTaskInCategory = todo => {
     taskCheckbox.addEventListener("click", () => {
         todo.completed = todo.completed === "yes" ? "no" : "yes";
         syncCheckboxState(todo.id, todo.completed);
+        updateActiveTasksNumber();
     });
 
     taskToAdd.appendChild(taskCheckbox);
@@ -194,6 +201,16 @@ const addTaskInCategory = todo => {
     }
 
     taskElements[todo.id].category = taskCheckbox;
+}
+
+const updateActiveTasksNumber = () => {
+    let tasksLeft = 0;
+    todoList.forEach(todo => {
+        if (todo.completed === "no") {
+            tasksLeft++;
+        }
+    });
+    numberOfTasksSpan.textContent = tasksLeft;
 }
 
 todoForm.addEventListener("submit", (event) => {
@@ -229,6 +246,7 @@ todoForm.addEventListener("submit", (event) => {
     console.log(todoList);
     console.log(taskElements);
     idTask++;
+    updateActiveTasksNumber();
 });
 
 clearCompletedButton.addEventListener("click", () => {
@@ -326,3 +344,12 @@ allCompletedButton.addEventListener("click", () => {
     menuSelect = "All Completed";
     showAllCompletedTasks();
 });;
+
+markCompletedButton.addEventListener("click", () => {
+    todoList.forEach(todo => {
+        todo.completed = "yes";
+        syncCheckboxState(todo.id, "yes");
+    });
+    updateActiveTasksNumber();
+});
+
