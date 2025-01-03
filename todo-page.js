@@ -59,11 +59,14 @@ const showThisWeekTasks = () => {
     const offsetSunday = (dayOfWeek === 0? 0 : 7 - dayOfWeek);
 
     startOfWeek.setDate(today.getDate() - offsetMonday);
+    console.log(startOfWeek);
     endOfWeek.setDate(today.getDate() + offsetSunday);
+    console.log(endOfWeek);
 
     tasksList.forEach(task => {
-        const taskDate = parseInt(task.querySelector(".task-date-main").textContent.substring(8, 10),10);
-        if (taskDate >= startOfWeek.getDate() && taskDate <= endOfWeek.getDate()) {
+        const taskDateStr = task.querySelector(".task-date-main").textContent;
+        const taskDate = new Date(taskDateStr);
+        if (taskDate >= startOfWeek && taskDate <= endOfWeek) {
             mainTasksList.appendChild(task);
         }
     });
