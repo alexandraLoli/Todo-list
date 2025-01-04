@@ -1,6 +1,5 @@
 // TODO: Fa in asa fel incat sa se vada ce buton e selectat din meniu
 
-
 const todoTitle = document.getElementById("title");
 const todoDescription = document.getElementById("description");
 const todoCategory = document.getElementById("category");
@@ -21,10 +20,14 @@ const personalDevelopmentTasksList = document.getElementById("personal-tasks");
 const todoForm = document.getElementById("entry-form");
 const numberOfTasksSpan = document.getElementById("number-of-tasks");
 const markCompletedButton = document.getElementById("mark-completed");
+const body = document.querySelector("body");
+const overlay = document.querySelector(".overlay");
 
 const categoryList = ["work", "home", "health", "social", "personal"];
 
 let todoList = [];
+
+let taskFixedOnScreen = undefined;
 
 let idTask = 0;
 
@@ -120,10 +123,233 @@ const syncCheckboxState = (taskId, completed) => {
     }
 }
 
+
+const createFixed = todo => {
+    const taskFixed = document.createElement("div");
+    taskFixed.className = "show-task-fixed";
+
+    // Add title to fixed task
+    const taskTitleFixed = document.createElement("p");
+    taskTitleFixed.className = "task-title-fixed";
+    taskTitleFixed.textContent = todo.title;
+
+    taskTitleFixed.addEventListener("dblclick", () => {
+        var input = document.createElement("input");
+        input.type = "text";
+        input.maxLength = 10;
+        input.minLength = 1;
+        input.classList.add("input-title-task-fixed");
+        input.value = taskTitleFixed.textContent;
+        const val = taskTitleFixed.textContent;
+        input.required = true;
+    
+        taskTitleFixed.textContent = ``;
+        taskTitleFixed.appendChild(input);
+    
+        input.focus();
+    
+        input.addEventListener("blur", () => {
+            if (input.value === "") {
+                taskTitleFixed.innerHTML = val;
+            } else {
+                taskTitleFixed.innerHTML = input.value;
+            }
+            
+        });
+    });
+
+    taskFixed.appendChild(taskTitleFixed);
+
+    // Add date to task fixed
+    const taskDateFixed = document.createElement("p");
+    taskDateFixed.className = "task-date-fixed";
+    taskDateFixed.innerHTML = `${todo.date} <i class="fas fa-calendar-alt"></i>`;
+
+    taskDateFixed.addEventListener("dblclick", () => {
+        var input = document.createElement("input");
+        input.type = "date";
+        input.classList.add("input-date-task-fixed");
+        input.value = taskDateFixed.textContent;
+        let val = taskDateFixed.textContent;
+        input.required = true;
+    
+        taskDateFixed.textContent = ``;
+        taskDateFixed.appendChild(input);
+    
+        input.focus();
+    
+        input.addEventListener("blur", () => {
+            if (input.value === "") {
+                taskDateFixed.innerHTML = `${val} <i class="fas fa-calendar-alt"></i>`;
+            } else {
+                taskDateFixed.innerHTML = `${input.value} <i class="fas fa-calendar-alt"></i>`;
+            }
+        });
+    });
+
+    taskFixed.appendChild(taskDateFixed);
+
+    // Add checkbox to task fixed 
+    const taskCheckboxFixed = document.createElement("div");
+    taskCheckboxFixed.className = "task-checkbox-fixed";
+    if (todo.completed === "yes") {
+        taskCheckboxFixed.classList.add("checked");
+    } else {
+        taskCheckboxFixed.classList.add("unchecked");
+    }
+
+    taskCheckboxFixed.addEventListener("click", () => {
+        todo.completed = todo.completed === "yes" ? "no" : "yes";
+        syncCheckboxState(todo.id, todo.completed);
+        updateActiveTasksNumber();
+
+        if (taskCheckboxFixed.classList.contains("unchecked")) {
+            taskCheckboxFixed.classList.remove("unchecked");
+            taskCheckboxFixed.classList.add("checked");
+        } else {
+            taskCheckboxFixed.classList.remove("checked");
+            taskCheckboxFixed.classList.add("unchecked");
+        }
+    });
+
+    taskFixed.appendChild(taskCheckboxFixed);
+
+    // Add description to task fixed
+    const taskDescriptionFixed = document.createElement("div");
+    taskDescriptionFixed.className = "task-description-fixed";
+    taskDescriptionFixed.textContent = todo.description;
+
+
+    taskDescriptionFixed.addEventListener("dblclick", () => {
+        console.log("hellooo")
+        var input = document.createElement("textarea");
+        input.maxLength = 100;
+        input.minLength = 1;
+        input.classList.add("textarea-description-task-fixed");
+        input.value = taskDescriptionFixed.textContent;
+        const val = taskDescriptionFixed.textContent;
+        input.required = true;
+    
+        taskDescriptionFixed.textContent = ``;
+        taskDescriptionFixed.appendChild(input);
+    
+        input.focus();
+    
+        input.addEventListener("blur", () => {
+            if (input.value === "") {
+                taskDescriptionFixed.innerHTML = val;
+            } else {
+                taskDescriptionFixed.innerHTML = input.value;
+            }
+        });
+    });
+
+    taskFixed.appendChild(taskDescriptionFixed);
+
+    // Add delete button to task fixed
+    const taskDeleteButton = document.createElement("div");
+    taskDeleteButton.className = "delete-task-button";
+    taskDeleteButton.textContent = "Delete Task";
+
+    taskDeleteButton.addEventListener("click", () => {
+
+        // Delete from todoList
+        let index = todoList.indexOf(todo);
+        if (index !== -1) {
+            todoList.splice(index, 1);
+        }
+
+        // Delete from taskElements
+        //TODO
+
+        // Delete form tasksList
+        tasksList = tasksList.filter(task => {
+            const taskId = task.dataset.id;
+            return !(taskId === todo.id);
+        });
+
+        // Delete from category
+        switch(todo.category) {
+            case categoryList[0]:{
+                const workTasks = Array.from(workTasksList.children);
+                workTasks.forEach(task => {
+                    const taskId = task.dataset.id;
+                    if (taskId === todo.id) {
+                        workTasksList.removeChild(task);
+                    }
+                });
+                break;}
+            case categoryList[1]:{
+                const householdTasks = Array.from(householdTasksList.children);
+                householdTasks.forEach(task => {
+                    const taskId = task.dataset.id;
+                    if (taskId === todo.id) {
+                        householdTasksList.removeChild(task);
+                    }
+                });
+                break;}
+            case categoryList[2]:{
+                const healthTasks = Array.from(healthTasksList.children);
+                healthTasks.forEach(task => {
+                    const taskId = task.dataset.id;
+                    if (taskId === todo.id) {
+                        healthTasksList.removeChild(task);
+                    }
+                });
+                break;}
+            case categoryList[3]:{
+                const socialTasks = Array.from(socialTasksList.children);
+                socialTasks.forEach(task => {
+                    const taskId = task.dataset.id;
+                    if (taskId === todo.id) {
+                        socialTasksList.removeChild(task);
+                    }
+                });
+                break;}
+            case categoryList[4]:{
+                const personalTasks = Array.from(personalDevelopmentTasksList.children);
+                personalTasks.forEach(task => {
+                    const taskId = task.dataset.id;
+                    if (taskId === todo.id) {
+                        personalDevelopmentTasksList.removeChild(task);
+                    }
+                });
+                break;}
+            default: break;
+        }
+
+        taskFixed.remove();
+        overlay.style.display = "none";
+    });
+
+    taskFixed.appendChild(taskDeleteButton);
+
+    // Add close button to task fixed
+    const taskCloseButton = document.createElement("div");
+    taskCloseButton.className = "close-button";
+    taskCloseButton.textContent = "Close";
+
+    taskCloseButton.addEventListener("click", () => {
+        taskFixed.remove();
+        overlay.style.display = "none";
+    });
+
+    taskFixed.appendChild(taskCloseButton);
+    taskFixedOnScreen = taskFixed;
+
+    // Add task fixed to body
+    body.appendChild(taskFixed);
+}
+
 const addTaskInMain = todo => {
     const taskToAdd = document.createElement("div");
     taskToAdd.className = "task-entry-main";
     taskToAdd.dataset.id = todo.id;
+
+    taskToAdd.addEventListener("click", () => {
+        overlay.style.display = "block";
+        createFixed(todo);
+    });
 
     const taskTitle = document.createElement("p");
     taskTitle.className = "task-title-main";
@@ -272,8 +498,10 @@ todoForm.addEventListener("submit", (event) => {
 
 clearCompletedButton.addEventListener("click", () => {
 
+    // Delete tasks from todoList
     todoList = todoList.filter(todo => todo.completed !== "yes");
 
+    // Delete tasks from main list
     const mainTasks = Array.from(mainTasksList.children);
     mainTasks.forEach(task => {
         const checkbox = task.querySelector(".task-checkbox-main");
@@ -282,11 +510,13 @@ clearCompletedButton.addEventListener("click", () => {
         }
     });
 
+    // Delete tasks from taskList
     tasksList = tasksList.filter(task => {
         const checkbox = task.querySelector(".task-checkbox-main");
         return !checkbox.classList.contains("checked");
     });
 
+    // Delete tasks from work todos
     const workTasks = Array.from(workTasksList.children);
     workTasks.forEach(task => {
         const checkbox = task.querySelector(".task-checkbox-category");
@@ -295,6 +525,7 @@ clearCompletedButton.addEventListener("click", () => {
         }
     });
 
+    // Delete tasks from household todos
     const homeTasks = Array.from(householdTasksList.children);
     homeTasks.forEach(task => {
         const checkbox = task.querySelector(".task-checkbox-category");
@@ -303,6 +534,7 @@ clearCompletedButton.addEventListener("click", () => {
         }
     });
 
+    // Delete tasks from social todos
     const socialTasks = Array.from(socialTasksList.children);
     socialTasks.forEach(task => {
         const checkbox = task.querySelector(".task-checkbox-category");
@@ -311,6 +543,7 @@ clearCompletedButton.addEventListener("click", () => {
         }
     });
 
+    // Delete tasks from health todos
     const healthTasks = Array.from(healthTasksList.children);
     healthTasks.forEach(task => {
         const checkbox = task.querySelector(".task-checkbox-category");
@@ -319,6 +552,7 @@ clearCompletedButton.addEventListener("click", () => {
         }
     });
 
+    // Delete tasks from personal development todos
     const personalTasks = Array.from(personalDevelopmentTasksList.children);
     personalTasks.forEach(task => {
         const checkbox = task.querySelector(".task-checkbox-category");
@@ -327,6 +561,7 @@ clearCompletedButton.addEventListener("click", () => {
         }
     });
 
+    // Delete completed entries from taskElements object
     const newTaskElements = {};
 
     for (const key in taskElements) {
@@ -372,5 +607,13 @@ markCompletedButton.addEventListener("click", () => {
         syncCheckboxState(todo.id, "yes");
     });
     updateActiveTasksNumber();
+});
+
+overlay.addEventListener("click", () => {
+    overlay.style.display = "none";
+    if (taskFixedOnScreen !== undefined ) {
+        taskFixedOnScreen.remove();
+        taskFixedOnScreen = undefined;
+    }
 });
 

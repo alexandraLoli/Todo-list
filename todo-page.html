@@ -12,10 +12,10 @@
             <h1>TODOs</h1>
             <form id="entry-form">
                 <label for="title">Title:</label>
-                <input type="text" id="title" name="title" maxlength="12" placeholder="Enter todo title" required>
+                <input type="text" id="title" name="title" maxlength="10" placeholder="Enter todo title" required>
 
                 <label for="description">Description:</label>
-                <textarea id="description" name="description" placeholder="Enter todo description" required></textarea>
+                <textarea id="description" name="description" maxlength="100" placeholder="Enter todo description" required></textarea>
 
                 <label for="category">Category:</label>
                 <select id="category" name="category" required>
@@ -61,11 +61,14 @@
         </div>
 
         <div class="fixed" id="fixed">
-           <div class="remained-tasks" id="remained-tasks"><span id="number-of-tasks"></span>tasks left</div> 
+           <div class="remained-tasks" id="remained-tasks"><span id="number-of-tasks">0</span>tasks left</div> 
            <div class="mark-completed" id="mark-completed">Complete all</div> 
         </div>
 
+        <div class="overlay"></div>
+
         <script src="./todo-page.js"></script>
+        <!-- <script src="./todo-fixed.js"></script> -->
     </body>
 </html>
 

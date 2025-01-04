@@ -13,6 +13,9 @@
     --on-primary-container: #671839;
     --inverse-surface: #382e30;
     --inverse-primary: #ffb1c6;
+    --error: #E30B5D;
+    --on-error: #ffffff;
+
 }
 
 * {
@@ -84,6 +87,10 @@ input, select, textarea {
     color: var(--on-primary-container);
     border: none;
     border-radius: 5px;
+}
+
+textarea {
+    resize: none;
 }
 
 button {
@@ -200,6 +207,10 @@ button:hover {
     overflow: auto;
     display: inline;
     position: relative;
+}
+
+.task-entry-main:hover {
+    cursor: pointer;
 }
 
 .task-date-main {
@@ -372,4 +383,133 @@ button:hover {
 
 span {
     margin-right: 3px;
+}
+
+.show-task-fixed {
+    position: fixed;
+    top: 50%;
+    left: 30%;
+    transform: translate(-50%, -50%);
+    width: 20%;
+    height: 50%;
+    background-color: var(--inverse-surface);
+    border: 3px solid var(--inverse-primary);
+    color: var(--inverse-primary);
+    border-radius: 20px;
+    z-index: 3;
+}
+
+.task-title-fixed {
+    font-size: 1.3rem;
+    position: absolute;
+    top: 6%;
+    left: 5%;
+}
+
+.task-date-fixed {
+    font-size: 1rem;
+    position: absolute;
+    left: 45%;
+    top: 9%;
+}
+
+.task-description-fixed {
+    word-wrap: break-word;
+    font-weight: normal;
+    font-size: 0.8rem;
+    position: absolute;
+    width: 90%;
+    top: 30%;
+    left: 5%;
+}
+
+.task-checkbox-fixed { 
+    border: 2px solid var(--inverse-primary);
+    border-radius: 50%;
+    width: 10%;
+    height: 8%;
+    position: absolute;
+    left: 83%;
+    top: 13%;
+}
+
+.delete-task-button {
+    background-color: vaR(--inverse-primary);
+    color: var(--inverse-surface);
+    border: 2px solid var(--on-error);
+    border-radius: 10px;
+    width: 120px;
+    height: 40px;
+    position: absolute;
+    left: 5%;
+    bottom: 5%;
+    text-align: center;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.delete-task-button:hover {
+    background-color: var(--inverse-surface);
+    color: var(--inverse-primary);
+    cursor: pointer;
+}
+
+.input-title-task-fixed {
+    background-color: var(--inverse-surface);
+    color: var(--inverse-primary);
+    border: none;
+    font-size: 1.3rem;
+    width: 40%;
+    font-family: "Concert One", serif;
+}
+
+.textarea-description-task-fixed {
+    background-color: var(--inverse-surface);
+    color: var(--inverse-primary);
+    border: none;
+    font-size: 0.8rem;
+    width: 90%;
+    height: 150px;
+    max-width: 90%;
+    font-family: "Concert One", serif;
+}
+
+.input-date-task-fixed {
+    background-color: var(--inverse-surface);
+    color: var(--inverse-primary);
+    font-size: 1rem;
+    font-family: "Concert One", serif;
+    width: 100px;
+}
+
+.close-button {
+    background-color: vaR(--inverse-primary);
+    color: var(--inverse-surface);
+    border: 2px solid var(--on-error);
+    border-radius: 10px;
+    width: 120px;
+    height: 40px;
+    position: absolute;
+    right: 5%;
+    bottom: 5%;
+    text-align: center;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.close-button:hover {
+    background-color: var(--inverse-surface);
+    color: var(--inverse-primary);
+    cursor: pointer;
+}
+
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.2); 
+    z-index: 2; 
 }
