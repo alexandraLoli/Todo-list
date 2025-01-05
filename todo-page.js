@@ -123,6 +123,157 @@ const syncCheckboxState = (taskId, completed) => {
     }
 }
 
+const syncEditedParameters = (todo, value, parameter) => {
+    switch (parameter) {
+        case "description": {
+            todo.description = value;
+
+            tasksList.forEach(task => {
+                if (Number(task.dataset.id) == todo.id) {
+                    task.querySelector(".task-description-main").innerHTML = value;
+                }
+            });
+            
+            break;}
+        case "title":{
+            todo.title = value;
+            tasksList.forEach(task => {
+                if (Number(task.dataset.id) == todo.id) {
+                    task.querySelector(".task-title-main").innerHTML = value;
+                }
+            });
+            switch(todo.category) {
+                case categoryList[0]:{
+                    const workTasks = Array.from(workTasksList.children);
+                    workTasks.forEach(task => {
+                        const taskId = Number(task.dataset.id);
+                        console.log(`${taskId} ${todo.id}`);
+                        if (taskId === todo.id) {
+                            task.querySelector(".task-title-category").innerHTML = value;
+                        }
+                    });
+                    break;}
+                case categoryList[1]:{
+                    const householdTasks = Array.from(householdTasksList.children);
+                    householdTasks.forEach(task => {
+                        const taskId = Number(task.dataset.id);
+                        if (taskId === todo.id) {
+                            task.querySelector(".task-title-category").innerHTML = value;
+                        }
+                    });
+                    break;}
+                case categoryList[2]:{
+                    const healthTasks = Array.from(healthTasksList.children);
+                    healthTasks.forEach(task => {
+                        const taskId = Number(task.dataset.id);
+                        if (taskId === todo.id) {
+                            task.querySelector(".task-title-category").innerHTML = value;
+                        }
+                    });
+                    break;}
+                case categoryList[3]:{
+                    const socialTasks = Array.from(socialTasksList.children);
+                    socialTasks.forEach(task => {
+                        const taskId = Number(task.dataset.id);
+                        if (taskId === todo.id) {
+                            task.querySelector(".task-title-category").innerHTML = value;
+                        }
+                    });
+                    break;}
+                case categoryList[4]:{
+                    const personalTasks = Array.from(personalDevelopmentTasksList.children);
+                    personalTasks.forEach(task => {
+                        const taskId = Number(task.dataset.id);
+                        if (taskId === todo.id) {
+                            task.querySelector(".task-title-category").innerHTML = value;
+                        }
+                    });
+                    break;}
+                default: break;
+            }
+            break;}
+        case "date":{
+            todo.date = value;
+            tasksList.forEach(task => {
+                if (Number(task.dataset.id) == todo.id) {
+                    task.querySelector(".task-date-main").innerHTML = `${value} <i class="fas fa-calendar-alt"></i>`;
+                }
+            });
+            switch(todo.category) {
+                case categoryList[0]:{
+                    const workTasks = Array.from(workTasksList.children);
+                    workTasks.forEach(task => {
+                        const taskId = Number(task.dataset.id);
+                        console.log(`${taskId} ${todo.id}`);
+                        if (taskId === todo.id) {
+                            task.querySelector(".task-date-category").innerHTML = `${value} <i class="fas fa-calendar-alt"></i>`;
+                        }
+                    });
+                    break;}
+                case categoryList[1]:{
+                    const householdTasks = Array.from(householdTasksList.children);
+                    householdTasks.forEach(task => {
+                        const taskId = Number(task.dataset.id);
+                        if (taskId === todo.id) {
+                            task.querySelector(".task-date-category").innerHTML = `${value} <i class="fas fa-calendar-alt"></i>`;
+                        }
+                    });
+                    break;}
+                case categoryList[2]:{
+                    const healthTasks = Array.from(healthTasksList.children);
+                    healthTasks.forEach(task => {
+                        const taskId = Number(task.dataset.id);
+                        if (taskId === todo.id) {
+                            task.querySelector(".task-date-category").innerHTML = `${value} <i class="fas fa-calendar-alt"></i>`;
+                        }
+                    });
+                    break;}
+                case categoryList[3]:{
+                    const socialTasks = Array.from(socialTasksList.children);
+                    socialTasks.forEach(task => {
+                        const taskId = Number(task.dataset.id);
+                        if (taskId === todo.id) {
+                            task.querySelector(".task-date-category").innerHTML = `${value} <i class="fas fa-calendar-alt"></i>`;
+                        }
+                    });
+                    break;}
+                case categoryList[4]:{
+                    const personalTasks = Array.from(personalDevelopmentTasksList.children);
+                    personalTasks.forEach(task => {
+                        const taskId = Number(task.dataset.id);
+                        if (taskId === todo.id) {
+                            task.querySelector(".task-date-category").innerHTML =`${value} <i class="fas fa-calendar-alt"></i>`;
+                        }
+                    });
+                    break;}
+                default: break;
+            }
+            break;}
+        default:{
+            break;}
+    }
+
+    switch(menuSelect) {
+        case menuOptions[0]:
+            showTodayTasks();
+            break;
+        case menuOptions[1]:
+            showThisWeekTasks();
+            break;
+        case menuOptions[2]:
+            showAllTasks();
+            break;
+        case menuOptions[3]:
+            showAllActiveTasks();
+            break;
+        case menuOptions[4]:
+            showAllCompletedTasks();
+            break;
+        default:
+            break;
+    }
+}
+
 
 const createFixed = todo => {
     const taskFixed = document.createElement("div");
@@ -153,6 +304,7 @@ const createFixed = todo => {
                 taskTitleFixed.innerHTML = val;
             } else {
                 taskTitleFixed.innerHTML = input.value;
+                syncEditedParameters(todo, input.value, "title");
             }
             
         });
@@ -183,6 +335,7 @@ const createFixed = todo => {
                 taskDateFixed.innerHTML = `${val} <i class="fas fa-calendar-alt"></i>`;
             } else {
                 taskDateFixed.innerHTML = `${input.value} <i class="fas fa-calendar-alt"></i>`;
+                syncEditedParameters(todo, input.value, "date");
             }
         });
     });
@@ -240,6 +393,7 @@ const createFixed = todo => {
                 taskDescriptionFixed.innerHTML = val;
             } else {
                 taskDescriptionFixed.innerHTML = input.value;
+                syncEditedParameters(todo, input.value, "description");
             }
         });
     });
