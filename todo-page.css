@@ -241,7 +241,7 @@ button:hover {
 }
 
 .task-title-main {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     position: absolute;
     top: 6%;
     left: 5%;
@@ -390,8 +390,8 @@ span {
     top: 50%;
     left: 30%;
     transform: translate(-50%, -50%);
-    width: 20%;
-    height: 50%;
+    width: 300px;
+    height: 400px;
     background-color: var(--inverse-surface);
     border: 3px solid var(--inverse-primary);
     color: var(--inverse-primary);
@@ -512,4 +512,183 @@ span {
     height: 100%;
     background-color: rgba(0, 0, 0, 0.2); 
     z-index: 2; 
+}
+
+@media (max-width: 700px) {
+    .main-tasks-flex {
+        padding: 10px;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        color: var(--on-primary-container);
+        justify-content: center;
+        align-items: center;
+        padding: auto;
+    }
+    
+    .task-entry-main {
+        width: 80%;
+        height: 200px;
+        background-color: var(--surface-dim);
+        border: 3px solid var(--on-primary-container);
+        padding: 10px;
+        border-radius: 10px;
+        font-weight: bold;
+        box-sizing: border-box;
+        overflow: auto;
+        display: inline;
+        position: relative;
+    }
+
+    
+}
+
+@media (max-width: 600px) {
+    .task-entry-category {
+        margin-top: 10px;
+        width: 100%;
+        height: 90px;
+        border: 2px solid var(--secondary);
+        border-radius: 10px;
+        box-sizing: border-box;
+        color: var(--secondary);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 2px;
+    }
+    
+    .task-checkbox-category {
+        border: 2px solid var(--secondary);
+        border-radius: 50%;
+        width: 25px;
+        height: 25px;
+    }
+    
+    .task-title-category {
+        font-size: 1rem;
+        margin:0;
+    }
+    
+    .task-date-category {
+        font-size: 0.9rem;
+        margin: 0;
+    }
+
+    .show-task-fixed {
+        position: fixed;
+        top: 50%;
+        left: 40%;
+        transform: translate(-50%, -50%);
+        width: 300px;
+        height: 400px;
+        background-color: var(--inverse-surface);
+        border: 3px solid var(--inverse-primary);
+        color: var(--inverse-primary);
+        border-radius: 20px;
+        z-index: 3;
+    }
+}
+
+@media (min-width: 600px) and (max-width: 700px){
+    .task-entry-category {
+        margin-top: 10px;
+        width: 100%;
+        height: 90px;
+        border: 2px solid var(--secondary);
+        border-radius: 10px;
+        box-sizing: border-box;
+        color: var(--secondary);
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 2px;
+    }
+    
+    .task-checkbox-category {
+        border: 2px solid var(--secondary);
+        border-radius: 50%;
+        width: 25px;
+        height: 25px;
+    }
+    
+    .task-title-category {
+        font-size: 1.3rem;
+        margin:0;
+        width: 50%
+    }
+    
+    .task-date-category {
+        font-size: 1.2rem;
+        width: 80%;
+        margin: 0;
+    }
+}
+
+@media (min-width: 700px) and (max-width: 1440px) {
+    .main-tasks-flex {
+        padding: 10px;
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+        color: var(--on-primary-container);
+        justify-content: center;
+        align-items: center;
+        padding: auto;
+    }
+    
+    .task-entry-main {
+        width: 45%;
+        height: 200px;
+        background-color: var(--surface-dim);
+        border: 3px solid var(--on-primary-container);
+        padding: 10px;
+        border-radius: 10px;
+        font-weight: bold;
+        box-sizing: border-box;
+        overflow: auto;
+        display: inline;
+        position: relative;
+    }
+
+    .task-checkbox-main {
+        width: 23px;
+        height: 23px;
+    }
+
+    .task-date-main {
+        top: 20%;
+        left: 5%;
+    }
+
+    .task-description-main {
+        top: 40%;
+    }
+}
+
+@media (max-width: 1180px) {
+    .main-menu {
+        background-color: var(--primary);
+        color: var(--on-primary);
+        width: 100%;
+        height: 10%;
+        padding: 10px;
+        text-align: center;
+        font-size: 1.5rem;
+        display: flex;
+        gap: 5px;
+        flex-direction: row;
+        justify-content: space-around;
+        flex-wrap: wrap;
+    }
+    
+    .main-menu > button {
+        border: 2px solid var(--on-primary);
+        width: 30%;
+    }
 }

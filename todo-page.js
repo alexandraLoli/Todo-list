@@ -373,7 +373,8 @@ const addTaskInMain = todo => {
     const taskCheckbox = document.createElement("div");
     taskCheckbox.className = "task-checkbox-main unchecked";
 
-    taskCheckbox.addEventListener("click", () => {
+    taskCheckbox.addEventListener("click", (event) => {
+        event.stopPropagation();
         todo.completed = todo.completed === "yes" ? "no" : "yes";
         syncCheckboxState(todo.id, todo.completed);
         updateActiveTasksNumber();
