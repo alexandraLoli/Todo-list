@@ -264,8 +264,16 @@ const createFixed = todo => {
 
         // Delete form tasksList
         tasksList = tasksList.filter(task => {
-            const taskId = task.dataset.id;
+            const taskId = Number(task.dataset.id);
             return !(taskId === todo.id);
+        });
+
+        const mainTasks = Array.from(mainTasksList.children);
+        mainTasks.forEach(task => {
+            const taskId = Number(task.dataset.id);
+            if (taskId === todo.id) {
+                mainTasksList.removeChild(task);
+            }
         });
 
         // Delete from category
@@ -273,7 +281,8 @@ const createFixed = todo => {
             case categoryList[0]:{
                 const workTasks = Array.from(workTasksList.children);
                 workTasks.forEach(task => {
-                    const taskId = task.dataset.id;
+                    const taskId = Number(task.dataset.id);
+                    console.log(`${taskId} ${todo.id}`);
                     if (taskId === todo.id) {
                         workTasksList.removeChild(task);
                     }
@@ -282,7 +291,7 @@ const createFixed = todo => {
             case categoryList[1]:{
                 const householdTasks = Array.from(householdTasksList.children);
                 householdTasks.forEach(task => {
-                    const taskId = task.dataset.id;
+                    const taskId = Number(task.dataset.id);
                     if (taskId === todo.id) {
                         householdTasksList.removeChild(task);
                     }
@@ -291,7 +300,7 @@ const createFixed = todo => {
             case categoryList[2]:{
                 const healthTasks = Array.from(healthTasksList.children);
                 healthTasks.forEach(task => {
-                    const taskId = task.dataset.id;
+                    const taskId = Number(task.dataset.id);
                     if (taskId === todo.id) {
                         healthTasksList.removeChild(task);
                     }
@@ -300,7 +309,7 @@ const createFixed = todo => {
             case categoryList[3]:{
                 const socialTasks = Array.from(socialTasksList.children);
                 socialTasks.forEach(task => {
-                    const taskId = task.dataset.id;
+                    const taskId = Number(task.dataset.id);
                     if (taskId === todo.id) {
                         socialTasksList.removeChild(task);
                     }
@@ -309,7 +318,7 @@ const createFixed = todo => {
             case categoryList[4]:{
                 const personalTasks = Array.from(personalDevelopmentTasksList.children);
                 personalTasks.forEach(task => {
-                    const taskId = task.dataset.id;
+                    const taskId = Number(task.dataset.id);
                     if (taskId === todo.id) {
                         personalDevelopmentTasksList.removeChild(task);
                     }
