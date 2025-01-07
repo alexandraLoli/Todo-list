@@ -133,7 +133,7 @@ const syncEditedParameters = (todo, value, parameter) => {
                     task.querySelector(".task-description-main").innerHTML = value;
                 }
             });
-            
+
             break;}
         case "title":{
             todo.title = value;
@@ -272,6 +272,16 @@ const syncEditedParameters = (todo, value, parameter) => {
         default:
             break;
     }
+}
+
+const updateActiveTasksNumber = () => {
+    let tasksLeft = 0;
+    todoList.forEach(todo => {
+        if (todo.completed === "no") {
+            tasksLeft++;
+        }
+    });
+    numberOfTasksSpan.textContent = tasksLeft;
 }
 
 
@@ -482,6 +492,7 @@ const createFixed = todo => {
         }
 
         taskFixed.remove();
+        updateActiveTasksNumber();
         overlay.style.display = "none";
     });
 
@@ -612,16 +623,6 @@ const addTaskInCategory = todo => {
     }
 
     taskElements[todo.id].category = taskCheckbox;
-}
-
-const updateActiveTasksNumber = () => {
-    let tasksLeft = 0;
-    todoList.forEach(todo => {
-        if (todo.completed === "no") {
-            tasksLeft++;
-        }
-    });
-    numberOfTasksSpan.textContent = tasksLeft;
 }
 
 todoForm.addEventListener("submit", (event) => {
